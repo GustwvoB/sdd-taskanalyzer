@@ -1,0 +1,4 @@
+services:
+  testes:
+    build: .
+    image: sdd-taskanalyzer
