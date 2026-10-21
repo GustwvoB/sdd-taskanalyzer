@@ -41,3 +41,15 @@ Estas regras valem para qualquer assistente de IA (ChatGPT, Gemini, Copilot, Cla
 - Revisar criticamente todo código gerado; nada é aceito automaticamente.
 - Rejeitar respostas que violem as proibições acima ou que fujam do contrato.
 - Se a IA sugerir mudar um teste para o código passar, a resposta deve ser rejeitada: o que se corrige é o código.
+
+## 5. Regras para infraestrutura (CI e Docker)
+
+Valem para qualquer arquivo de automação gerado ou alterado por IA (workflow do GitHub Actions, Dockerfile e docker-compose).
+
+- O pipeline de CI deve rodar o Test Harness (`tests/test_harness.py`) com Python 3.11 em `ubuntu-latest`.
+- O comando de testes é sempre `python -m pytest`, para o Python enxergar a pasta `src`.
+- Usar apenas actions oficiais do GitHub (`actions/...`). Não usar actions de terceiros sem autorização.
+- A imagem base do Docker deve ter versão fixa e leve (`python:3.11-slim`), sem usar a tag `latest`.
+- Não colocar senhas, tokens ou qualquer segredo em arquivos do repositório.
+- Não instalar dependências que não estejam no `requirements.txt`.
+- Não alterar os testes para fazer o pipeline ou o container passarem. Se algo falhar, corrige-se o código ou a infraestrutura.
